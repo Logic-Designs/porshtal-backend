@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\PurchaseController;
+use App\Http\Controllers\Api\PurchaseItemController;
 use App\Http\Controllers\Api\UserAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +22,13 @@ Route::post('register',[UserAuthController::class,'register']);
 Route::post('login',[UserAuthController::class,'login']);
 Route::post('logout',[UserAuthController::class,'logout'])
   ->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('purchases', PurchaseController::class);
+    Route::apiResource('purchase-items', PurchaseItemController::class);
+    Route::get('products', [ProductController::class, 'index']);
+
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
