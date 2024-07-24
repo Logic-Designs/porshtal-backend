@@ -17,7 +17,7 @@ class PurchaseResource extends JsonResource
         return [
             'id' => $this->id,
             'purchase_order_number' => $this->purchase_order_number,
-            'supplier' => new UserResource($this->whenLoaded('supplier')),
+            'supplier' => new SupplierResource($this->whenLoaded('supplier')),
             'order_date' => $this->order_date,
             'expected_delivery_date' => $this->expected_delivery_date,
             'total_amount' => $this->total_amount,

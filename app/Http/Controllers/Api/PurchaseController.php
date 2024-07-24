@@ -16,7 +16,7 @@ class PurchaseController extends Controller
     public function index()
     {
         $purchases = Purchase::with('items')->get();
-        return Response::success(PurchaseResource::collection($purchases), 'Purchases retrieved successfully');
+        return Response::success(PurchaseResource::collection($purchases->load('supplier')), 'Purchases retrieved successfully');
     }
 
     public function store(StorePurchaseRequest $request)
@@ -26,18 +26,19 @@ class PurchaseController extends Controller
         $purchase = Purchase::create([
             'id' => (string) Str::uuid(),
             'purchase_order_number' => $purchaseOrderNumber,
-            'supplier_id' => auth()->id(),
+            'supplier_id' => $request->supplier_id,
             'order_date' => Carbon::createFromFormat('d-m-Y', $request->order_date)->format('Y-m-d'),
             'expected_delivery_date' => Carbon::createFromFormat('d-m-Y', $request->expected_delivery_date)->format('Y-m-d'),
             'total_amount' => 0,
         ]);
 
-        return Response::success(new PurchaseResource($purchase), 'Purchase created successfully', [], 201);
+        return Response::success(new PurchaseResource($purchase->load('supplier')), 'Purchase created successfully', [], 201);
     }
+
 
     public function show(Purchase $purchase)
     {
-        return Response::success(new PurchaseResource($purchase->load('items')), 'Purchase retrieved successfully');
+        return Response::success(new PurchaseResource($purchase->load('items', 'supplier')), 'Purchase retrieved successfully');
     }
 
     public function update(UpdatePurchaseRequest $request, Purchase $purchase)

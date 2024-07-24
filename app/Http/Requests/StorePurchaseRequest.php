@@ -24,6 +24,7 @@ class StorePurchaseRequest extends FormRequest
         return [
             'order_date' => 'required|date_format:d-m-Y',
             'expected_delivery_date' => 'required|date_format:d-m-Y',
+            'supplier_id' => 'required|exists:suppliers,id',
         ];
     }
 }

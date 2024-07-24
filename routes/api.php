@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PurchaseController;
 use App\Http\Controllers\Api\PurchaseItemController;
+use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\UserAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('purchases', PurchaseController::class);
     Route::apiResource('purchase-items', PurchaseItemController::class);
     Route::get('products', [ProductController::class, 'index']);
+    Route::get('/suppliers', [SupplierController::class, 'index']);
 
 });
 

@@ -28,8 +28,9 @@ class Purchase extends Model
     // Define the relationships
     public function supplier()
     {
-        return $this->belongsTo(User::class, 'supplier_id');
+        return $this->belongsTo(Supplier::class);
     }
+
 
     public function items()
     {
