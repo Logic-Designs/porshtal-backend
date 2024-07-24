@@ -24,11 +24,12 @@ Route::post('login',[UserAuthController::class,'login']);
 Route::post('logout',[UserAuthController::class,'logout'])
   ->middleware('auth:sanctum');
 
+  Route::apiResource('purchases', PurchaseController::class);
+  Route::apiResource('purchase-items', PurchaseItemController::class);
+  Route::get('products', [ProductController::class, 'index']);
+  Route::get('/suppliers', [SupplierController::class, 'index']);
 Route::middleware('auth:sanctum')->group(function(){
-    Route::apiResource('purchases', PurchaseController::class);
-    Route::apiResource('purchase-items', PurchaseItemController::class);
-    Route::get('products', [ProductController::class, 'index']);
-    Route::get('/suppliers', [SupplierController::class, 'index']);
+
 
 });
 
