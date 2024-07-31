@@ -14,7 +14,7 @@ class PurchaseItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [ 
+        return [
             'id' => $this->id,
             'purchase_id' => $this->purchase_id,
             'product_name' => $this->product->name,
