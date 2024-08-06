@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\InventoryLocationController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PurchaseController;
 use App\Http\Controllers\Api\PurchaseItemController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\UserAuthController;
+use App\Http\Controllers\Api\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +31,10 @@ Route::post('logout',[UserAuthController::class,'logout'])
   Route::apiResource('purchase-items', PurchaseItemController::class);
   Route::get('products', [ProductController::class, 'index']);
   Route::get('/suppliers', [SupplierController::class, 'index']);
+
+  Route::apiResource('inventories', InventoryController::class);
+    Route::apiResource('inventory-locations', InventoryLocationController::class);
+    Route::apiResource('warehouses', WarehouseController::class);
 Route::middleware('auth:sanctum')->group(function(){
 
 
