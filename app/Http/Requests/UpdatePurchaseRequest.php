@@ -24,6 +24,7 @@ class UpdatePurchaseRequest extends FormRequest
     {
         return [
             'expected_delivery_date' => 'sometimes|date_format:d-m-Y',
+            'supplier_id' => 'required|exists:suppliers,id',
             'status' => [
                 'sometimes',
                 Rule::in(['open', 'pending', 'completed', 'cancelled']),
