@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\PurchaseController;
 use App\Http\Controllers\Api\PurchaseItemController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\UserAuthController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,16 +26,17 @@ use Illuminate\Support\Facades\Route;
 Route::post('register',[UserAuthController::class,'register']);
 Route::post('login',[UserAuthController::class,'login']);
 Route::post('logout',[UserAuthController::class,'logout'])
-  ->middleware('auth:sanctum');
+    ->middleware('auth:sanctum');
 
-  Route::apiResource('purchases', PurchaseController::class);
-  Route::apiResource('purchase-items', PurchaseItemController::class);
-  Route::get('products', [ProductController::class, 'index']);
-  Route::get('/suppliers', [SupplierController::class, 'index']);
+    Route::apiResource('purchases', PurchaseController::class);
+    Route::apiResource('purchase-items', PurchaseItemController::class);
+    Route::apiResource('products', ProductController::class);
+    Route::apiResource('suppliers', SupplierController::class);
 
-  Route::apiResource('inventories', InventoryController::class);
+    Route::apiResource('inventories', InventoryController::class);
     Route::apiResource('inventory-locations', InventoryLocationController::class);
     Route::apiResource('warehouses', WarehouseController::class);
+    Route::apiResource('users', UserController::class);
 Route::middleware('auth:sanctum')->group(function(){
 
 
