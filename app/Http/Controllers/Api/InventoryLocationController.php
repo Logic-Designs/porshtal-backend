@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateInventoryLocationRequest;
 use App\Http\Resources\InventoryLocationResource;
 use App\Models\InventoryLocation;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
+
 
 class InventoryLocationController extends Controller
 {
@@ -20,6 +22,7 @@ class InventoryLocationController extends Controller
     public function store(StoreInventoryLocationRequest $request)
     {
         $inventoryLocation = InventoryLocation::create([
+            'id' => (string) Str::uuid(),
             'warehouse_id' => $request->warehouse_id,
             'location_code' => $request->location_code,
             'description' => $request->description,

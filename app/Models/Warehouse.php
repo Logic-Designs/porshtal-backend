@@ -22,6 +22,10 @@ class Warehouse extends Model
         'manager_id' => 'string',
     ];
 
+    // Define the key type as uuid and disable auto increment
+    protected $keyType = 'uuid';
+    public $incrementing = false;
+    
     public function manager()
     {
         return $this->belongsTo(User::class, 'manager_id');

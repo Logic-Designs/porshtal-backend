@@ -22,6 +22,10 @@ class InventoryLocation extends Model
         'warehouse_id' => 'string',
     ];
 
+    // Define the key type as uuid and disable auto increment
+    protected $keyType = 'uuid';
+    public $incrementing = false;
+
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class);

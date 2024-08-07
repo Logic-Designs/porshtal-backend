@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateWarehouseRequest;
 use App\Http\Resources\WarehouseResource;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class WarehouseController extends Controller
 {
@@ -20,6 +21,7 @@ class WarehouseController extends Controller
     public function store(StoreWarehouseRequest $request)
     {
         $warehouse = Warehouse::create([
+            'id' => (string) Str::uuid(),
             'name' => $request->name,
             'location' => $request->location,
             'manager_id' => $request->manager_id,
