@@ -1,406 +1,56 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Hangout API",
+        "title": "Porshtal API",
         "version": "1.0.0"
     },
     "paths": {
-        "/api/v1/client/register": {
-            "post": {
+        "/api/inventories": {
+            "get": {
                 "tags": [
-                    "Authentication"
+                    "InventoryController"
                 ],
-                "summary": "User Register",
-                "description": "User Register here",
-                "operationId": "Register",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "phone",
-                                    "password",
-                                    "password_confirmation",
-                                    "first_name",
-                                    "last_name",
-                                    "type"
-                                ],
-                                "properties": {
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "+201234567890"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string"
-                                    },
-                                    "first_name": {
-                                        "type": "string"
-                                    },
-                                    "last_name": {
-                                        "type": "string"
-                                    },
-                                    "type": {
-                                        "type": "string",
-                                        "enum": [
-                                            "user",
-                                            "coach"
-                                        ]
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
+                "summary": "Get list of Inventory",
+                "operationId": "1a3a159deb813a623edf9e2c0d85a5d5",
                 "responses": {
                     "200": {
-                        "description": "Register Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    }
-                }
-            }
-        },
-        "/api/v1/client/login": {
-            "post": {
-                "tags": [
-                    "Authentication"
-                ],
-                "summary": "User Login",
-                "description": "Authenticate user and provide API token",
-                "operationId": "Login",
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "required": [
-                                    "phone",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "phone": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Login Successful",
+                        "description": "List of Inventory",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "properties": {
-                                                "token": {
-                                                    "description": "API Token",
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "Unauthorized",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Inventory"
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-        },
-        "/api/v1/client/logout": {
+            },
             "post": {
                 "tags": [
-                    "Authentication"
+                    "InventoryController"
                 ],
-                "summary": "User Logout",
-                "description": "Revoke the user's API token to log them out",
-                "operationId": "Logout",
-                "responses": {
-                    "200": {
-                        "description": "Logout Successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "message": {
-                                            "description": "Logged out",
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "Unauthorized",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/client/verify-phone": {
-            "post": {
-                "tags": [
-                    "Authentication"
-                ],
-                "summary": "Verify phone",
-                "description": "Verify-phone and provide new API token",
-                "operationId": "verify-phone",
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "required": [
-                                    "phone",
-                                    "code"
-                                ],
-                                "properties": {
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "+201234567890"
-                                    },
-                                    "code": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Phone number verified successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "properties": {
-                                                "token": {
-                                                    "description": "API Token",
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "An error occurred, please try again. Token mismatch",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Email Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "Incorrect phone",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/client/reset-verification-code": {
-            "post": {
-                "tags": [
-                    "Authentication"
-                ],
-                "summary": "Reset Verification Code",
-                "description": "Reset user's verification code and send a new one via SMS",
-                "operationId": "ResetVerificationCode",
+                "summary": "Create a new Inventory",
+                "operationId": "5f33cd8803c7e111ba7c89f58d4301d7",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "properties": {
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "+201234567890"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/Inventory"
                             }
                         }
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Verification Code Reset Successful",
+                    "201": {
+                        "description": "Inventory created",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "An error occurred, please try again. Invalid phone or verification code",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Phone Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "Incorrect phone",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Inventory"
                                 }
                             }
                         }
@@ -408,347 +58,1325 @@
                 }
             }
         },
-        "/api/v1/client/forget-password": {
-            "post": {
+        "/api/inventories/{id}": {
+            "get": {
                 "tags": [
-                    "Authentication"
+                    "InventoryController"
                 ],
-                "summary": "Request Password Reset",
-                "description": "Send a password reset code to the user's email",
-                "operationId": "ForgetPassword",
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "required": [
-                                    "phone"
-                                ],
-                                "properties": {
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "+201234567890"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Password Reset Token Sent",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "message": {
-                                            "description": "Password reset code sent successfully",
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Email Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "Incorrect phone",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/client/reset-password": {
-            "post": {
-                "tags": [
-                    "Authentication"
-                ],
-                "summary": "Reset Password",
-                "description": "Reset user's password and provide new API token",
-                "operationId": "ResetPassword",
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "required": [
-                                    "phone",
-                                    "code"
-                                ],
-                                "properties": {
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "+201234567890"
-                                    },
-                                    "code": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Password Reset Successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "properties": {
-                                                "token": {
-                                                    "description": "API Token",
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "An error occurred, please try again. Token mismatch",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Email Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "Incorrect phone",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/client/change-password": {
-            "post": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Change Password",
-                "description": "Change user's password",
-                "operationId": "ChangePassword",
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "required": [
-                                    "password",
-                                    "password_confirmation"
-                                ],
-                                "properties": {
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Password Changed Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "Unauthorized",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "description": "Validation errors",
-                                            "type": "string"
-                                        },
-                                        "errors": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
+                "summary": "Get Inventory by ID",
+                "operationId": "5ca65613ecbf464c0406c7c3c8252e28",
+                "parameters": [
                     {
-                        "sanctum": []
+                        "name": "id",
+                        "in": "path",
+                        "description": "Inventory ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Inventory"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "InventoryController"
+                ],
+                "summary": "Update Inventory by ID",
+                "operationId": "780f24f57f85ee1fef108e3a79adeb2b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Inventory ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Inventory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Inventory updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Inventory"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "InventoryController"
+                ],
+                "summary": "Delete Inventory by ID",
+                "operationId": "33c17d84e6a189a36aa35aabe62fa042",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Inventory ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Inventory deleted"
+                    }
+                }
+            }
+        },
+        "/api/inventory-locations": {
+            "get": {
+                "tags": [
+                    "InventoryLocationController"
+                ],
+                "summary": "Get list of InventoryLocation",
+                "operationId": "f03ea1f0c8b50a3d84ce08244b086fc6",
+                "responses": {
+                    "200": {
+                        "description": "List of InventoryLocation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/InventoryLocation"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "InventoryLocationController"
+                ],
+                "summary": "Create a new InventoryLocation",
+                "operationId": "32583a43b05aea7d5e0f7a96aed8a803",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InventoryLocation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "InventoryLocation created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InventoryLocation"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/inventory-locations/{id}": {
+            "get": {
+                "tags": [
+                    "InventoryLocationController"
+                ],
+                "summary": "Get InventoryLocation by ID",
+                "operationId": "33c5fa750872902578c0850711567a70",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "InventoryLocation ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "InventoryLocation details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InventoryLocation"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "InventoryLocationController"
+                ],
+                "summary": "Update InventoryLocation by ID",
+                "operationId": "34590af2b316bb4ab94c5eb7dacab1ff",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "InventoryLocation ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InventoryLocation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "InventoryLocation updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InventoryLocation"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "InventoryLocationController"
+                ],
+                "summary": "Delete InventoryLocation by ID",
+                "operationId": "1a81083b50ee3ffa6c86ce78a1fbb76a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "InventoryLocation ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "InventoryLocation deleted"
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "ProductController"
+                ],
+                "summary": "Get list of Product",
+                "operationId": "e46d108d90309952c401175c5e94ef57",
+                "responses": {
+                    "200": {
+                        "description": "List of Product",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ProductController"
+                ],
+                "summary": "Create a new Product",
+                "operationId": "8bfba18ea9c47ad6195a9c0e96045900",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "ProductController"
+                ],
+                "summary": "Get Product by ID",
+                "operationId": "6e3fddfd9da218a7f9a84e848ad5c3c1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ProductController"
+                ],
+                "summary": "Update Product by ID",
+                "operationId": "9a31ccc36557652f0ae1bd52cb5ef48a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ProductController"
+                ],
+                "summary": "Delete Product by ID",
+                "operationId": "68764369161137b3867656aab3410b67",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Product deleted"
+                    }
+                }
+            }
+        },
+        "/api/purchases": {
+            "get": {
+                "tags": [
+                    "PurchaseController"
+                ],
+                "summary": "Get list of Purchase",
+                "operationId": "ee4c69b654b7ec4b6d79e55df6595bb3",
+                "responses": {
+                    "200": {
+                        "description": "List of Purchase",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Purchase"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PurchaseController"
+                ],
+                "summary": "Create a new Purchase",
+                "operationId": "ef3470385e520187603f5123530e9265",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Purchase"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Purchase created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Purchase"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/purchases/{id}": {
+            "get": {
+                "tags": [
+                    "PurchaseController"
+                ],
+                "summary": "Get Purchase by ID",
+                "operationId": "b9f79d35eae7fa210521a6183a5dad3d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Purchase ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Purchase details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Purchase"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PurchaseController"
+                ],
+                "summary": "Update Purchase by ID",
+                "operationId": "06c4ba084486c99c5d7853c63dcc0818",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Purchase ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Purchase"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Purchase updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Purchase"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PurchaseController"
+                ],
+                "summary": "Delete Purchase by ID",
+                "operationId": "d8d507c07b470c30caec01737b2ff92f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Purchase ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Purchase deleted"
+                    }
+                }
+            }
+        },
+        "/api/purchase-items": {
+            "get": {
+                "tags": [
+                    "PurchaseItemController"
+                ],
+                "summary": "Get list of PurchaseItem",
+                "operationId": "b4632ffb16e18c9e3cf6faa5807e32fd",
+                "responses": {
+                    "200": {
+                        "description": "List of PurchaseItem",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PurchaseItem"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PurchaseItemController"
+                ],
+                "summary": "Create a new PurchaseItem",
+                "operationId": "27e6adc1840715640ba44d3c6912e7eb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PurchaseItem"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "PurchaseItem created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PurchaseItem"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/purchase-items/{id}": {
+            "get": {
+                "tags": [
+                    "PurchaseItemController"
+                ],
+                "summary": "Get PurchaseItem by ID",
+                "operationId": "3e1ed8a2c79b5fa4cb4bd70e6fbe634e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PurchaseItem ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "PurchaseItem details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PurchaseItem"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PurchaseItemController"
+                ],
+                "summary": "Update PurchaseItem by ID",
+                "operationId": "21574542729204758f6c8eebe9c4e0e5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PurchaseItem ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PurchaseItem"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "PurchaseItem updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PurchaseItem"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PurchaseItemController"
+                ],
+                "summary": "Delete PurchaseItem by ID",
+                "operationId": "c2f85346def9a0929618ad138fa62901",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PurchaseItem ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "PurchaseItem deleted"
+                    }
+                }
+            }
+        },
+        "/api/suppliers": {
+            "get": {
+                "tags": [
+                    "SupplierController"
+                ],
+                "summary": "Get list of Supplier",
+                "operationId": "5a07491c9bb0f80b30dd80854938839b",
+                "responses": {
+                    "200": {
+                        "description": "List of Supplier",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Supplier"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SupplierController"
+                ],
+                "summary": "Create a new Supplier",
+                "operationId": "8ba81915b628ed76cdc8502eb9aa2121",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Supplier"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Supplier created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Supplier"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/suppliers/{id}": {
+            "get": {
+                "tags": [
+                    "SupplierController"
+                ],
+                "summary": "Get Supplier by ID",
+                "operationId": "a53e63ec7efe05b589fe3d410d7f542d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supplier ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Supplier details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Supplier"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SupplierController"
+                ],
+                "summary": "Update Supplier by ID",
+                "operationId": "f614ddb2c46358bf2e9de3beb25d0a62",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supplier ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Supplier"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Supplier updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Supplier"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SupplierController"
+                ],
+                "summary": "Delete Supplier by ID",
+                "operationId": "1ac81a534778700d353ef0fd0ecfe41a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supplier ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Supplier deleted"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Get list of User",
+                "operationId": "78c8bdfb1fab79f46375924177646d3d",
+                "responses": {
+                    "200": {
+                        "description": "List of User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Create a new User",
+                "operationId": "d226b3f13f3ee927fb3ff7471df9bf59",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Get User by ID",
+                "operationId": "3df9427e6bcb67d07de2cf0d1b7f6e5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Update User by ID",
+                "operationId": "25fa95ef92a260305cfa891710f2ace3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Delete User by ID",
+                "operationId": "c39650c13eedf712712f225fc7933a5e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "User deleted"
+                    }
+                }
+            }
+        },
+        "/api/warehouses": {
+            "get": {
+                "tags": [
+                    "WarehouseController"
+                ],
+                "summary": "Get list of Warehouse",
+                "operationId": "3202759635b285795476dd2f81c90614",
+                "responses": {
+                    "200": {
+                        "description": "List of Warehouse",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Warehouse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "WarehouseController"
+                ],
+                "summary": "Create a new Warehouse",
+                "operationId": "fceb47f2622a7f9299b8105271eaad5e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Warehouse"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Warehouse created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Warehouse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/warehouses/{id}": {
+            "get": {
+                "tags": [
+                    "WarehouseController"
+                ],
+                "summary": "Get Warehouse by ID",
+                "operationId": "2ecb64a65a1321242a2e9ed2171da3c1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Warehouse ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Warehouse details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Warehouse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "WarehouseController"
+                ],
+                "summary": "Update Warehouse by ID",
+                "operationId": "a7f5804a21aa56b39a4b67e81c57faf3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Warehouse ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Warehouse"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Warehouse updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Warehouse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "WarehouseController"
+                ],
+                "summary": "Delete Warehouse by ID",
+                "operationId": "0badfefc6af693b4f669772971b50894",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Warehouse ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Warehouse deleted"
+                    }
+                }
             }
         }
     },
     "components": {
         "schemas": {
-            "User": {
+            "InventoryLocation": {
+                "title": "InventoryLocation",
+                "required": [
+                    "id"
+                ],
                 "properties": {
                     "id": {
-                        "type": "integer"
+                        "type": "string"
+                    },
+                    "warehouse_id": {
+                        "type": "string"
+                    },
+                    "location_code": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Inventory": {
+                "title": "Inventory",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "product_id": {
+                        "type": "string"
+                    },
+                    "warehouse_id": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "string"
+                    },
+                    "serial_number": {
+                        "type": "string"
+                    },
+                    "location_id": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Product": {
+                "title": "Product",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "string"
                     },
                     "name": {
                         "type": "string"
-                    }
-                },
-                "type": "object"
-            },
-            "Coach": {
-                "properties": {
-                    "id": {
-                        "type": "integer"
                     },
-                    "specialty": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
                         "type": "string"
                     }
                 },
                 "type": "object"
             },
-            "UpdateUserRequest": {
+            "PurchaseItem": {
+                "title": "PurchaseItem",
                 "required": [
-                    "experience",
-                    "fees",
-                    "activity_ids",
-                    "sub_activity_ids",
-                    "interests",
-                    "topics",
-                    "photos",
-                    "email",
-                    "first_name",
-                    "last_name",
-                    "about",
-                    "school",
-                    "gender",
-                    "work",
-                    "birthday",
-                    "city",
-                    "state",
-                    "country",
-                    "google_map",
-                    "receive_notification",
-                    "appear_in_search",
-                    "keep_me_posted",
-                    "deactivated",
-                    "locked_my_profile",
-                    "show_gender"
+                    "id"
                 ],
                 "properties": {
-                    "experience": {
-                        "type": "string",
-                        "maxLength": 255
+                    "id": {
+                        "type": "string"
                     },
-                    "fees": {
-                        "type": "number"
+                    "purchase_id": {
+                        "type": "string"
+                    },
+                    "product_id": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "string"
+                    },
+                    "unit_price": {
+                        "type": "string"
+                    },
+                    "total_price": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Purchase": {
+                "title": "Purchase",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "purchase_order_number": {
+                        "type": "string"
+                    },
+                    "supplier_id": {
+                        "type": "string"
+                    },
+                    "order_date": {
+                        "type": "string"
+                    },
+                    "expected_delivery_date": {
+                        "type": "string"
+                    },
+                    "total_amount": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Supplier": {
+                "title": "Supplier",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Warehouse": {
+                "title": "Warehouse",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "location": {
+                        "type": "string"
+                    },
+                    "manager_id": {
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -757,12 +1385,36 @@
     },
     "tags": [
         {
-            "name": "Authentication",
-            "description": "Authentication"
+            "name": "InventoryController",
+            "description": "Operations related to InventoryController"
         },
         {
-            "name": "Users",
-            "description": "Users"
+            "name": "InventoryLocationController",
+            "description": "Operations related to InventoryLocationController"
+        },
+        {
+            "name": "ProductController",
+            "description": "Operations related to ProductController"
+        },
+        {
+            "name": "PurchaseController",
+            "description": "Operations related to PurchaseController"
+        },
+        {
+            "name": "PurchaseItemController",
+            "description": "Operations related to PurchaseItemController"
+        },
+        {
+            "name": "SupplierController",
+            "description": "Operations related to SupplierController"
+        },
+        {
+            "name": "UserController",
+            "description": "Operations related to UserController"
+        },
+        {
+            "name": "WarehouseController",
+            "description": "Operations related to WarehouseController"
         }
     ]
 }
