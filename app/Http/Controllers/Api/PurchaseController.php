@@ -8,16 +8,33 @@ use App\Http\Requests\UpdatePurchaseRequest;
 use App\Http\Resources\PurchaseResource;
 use App\Models\Purchase;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Response;
 
 class PurchaseController extends Controller
 {
-    public function index()
-    {
-        $purchases = Purchase::with('items')->get();
-        return Response::success(PurchaseResource::collection($purchases->load('supplier')), 'Purchases retrieved successfully');
-    }
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+
+    $purchases = Purchase::with('items', 'supplier')
+        ->when($search, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('id', 'LIKE', "%{$search}%")
+                    ->orWhere('purchase_order_number', 'LIKE', "%{$search}%")
+                    ->orWhereHas('supplier', function ($query) use ($search) {
+                        $query->where('name', 'LIKE', "%{$search}%");
+                    })
+                    ->orWhere('status', 'LIKE', "%{$search}%")
+                    ->orWhere('created_at', 'LIKE', "%{$search}%");
+            });
+        })
+        ->get();
+
+    return Response::success(PurchaseResource::collection($purchases), 'Purchases retrieved successfully');
+}
+
 
     public function store(StorePurchaseRequest $request)
     {
