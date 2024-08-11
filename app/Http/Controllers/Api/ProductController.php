@@ -7,13 +7,25 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $search = $request->input('search');
+
+        $products = Product::when($search, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('id', 'LIKE', "%{$search}%")
+                    ->orWhere('name', 'LIKE', "%{$search}%")
+                    ->orWhere('description', 'LIKE', "%{$search}%")
+                    ->orWhere('price', 'LIKE', "%{$search}%"); // Adjust or remove as needed
+            });
+        })
+        ->get();
+
         return Response::success(ProductResource::collection($products), 'Products retrieved successfully');
     }
 
