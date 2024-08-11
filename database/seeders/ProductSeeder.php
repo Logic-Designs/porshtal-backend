@@ -14,25 +14,20 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::all();
-        $count = 1;
-        foreach($users as $user){
+
             Product::create([
                 'id' => (string) Str::uuid(),
-                'user_id' => $user->id,
-                'name' => 'Product '. $count,
-                'description' => 'Description for product '. $count++,
+                'name' => 'Product 12',
+                'description' => 'Description for product 12',
                 'price' => 100.00,
             ]);
 
             Product::create([
                 'id' => (string) Str::uuid(),
-                'user_id' => $user->id,
-                'name' => 'Product '. $count,
-                'description' => 'Description for product '. $count++,
+                'name' => 'Product 13',
+                'description' => 'Description for product 13',
                 'price' => 150.00,
             ]);
-        }
 
     }
 }

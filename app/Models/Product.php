@@ -13,7 +13,6 @@ class Product extends Model
     // Define the fillable attributes
     protected $fillable = [
         'id',
-        'user_id',
         'name',
         'description',
         'price',
@@ -29,9 +28,4 @@ class Product extends Model
         });
     }
 
-    // Define the relationship with the user
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }

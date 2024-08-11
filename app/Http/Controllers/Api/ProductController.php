@@ -20,7 +20,6 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $product = Product::create([
-            'user_id' => $request->user_id, // Ensure this is included if required
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,

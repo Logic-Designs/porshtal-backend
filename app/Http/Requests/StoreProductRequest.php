@@ -14,7 +14,6 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:users,id', // Ensure the user exists
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
