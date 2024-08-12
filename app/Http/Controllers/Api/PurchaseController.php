@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\PaginationHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
@@ -15,25 +16,25 @@ use Illuminate\Support\Facades\Response;
 class PurchaseController extends Controller
 {
     public function index(Request $request)
-{
-    $search = $request->input('search');
+    {
+        $search = $request->input('search');
+        $perPage = $request->input('per_page', 10); // Default to 10 items per page
 
-    $purchases = Purchase::with('items', 'supplier')
-        ->when($search, function ($query, $search) {
-            $query->where(function ($query) use ($search) {
-                $query->where('id', 'LIKE', "%{$search}%")
-                    ->orWhere('purchase_order_number', 'LIKE', "%{$search}%")
-                    ->orWhereHas('supplier', function ($query) use ($search) {
-                        $query->where('name', 'LIKE', "%{$search}%");
-                    })
-                    ->orWhere('status', 'LIKE', "%{$search}%")
-                    ->orWhere('created_at', 'LIKE', "%{$search}%");
-            });
-        })
-        ->get();
+        $query = Purchase::with('items', 'supplier')
+            ->search($search, [
+                'id',
+                'purchase_order_number',
+                'status',
+                'created_at',
+            ])->searchWithRelations($search ,['supplier' => ['name']]);
 
-    return Response::success(PurchaseResource::collection($purchases), 'Purchases retrieved successfully');
-}
+        // Debugging: Log the raw SQL query and bindings
+        info('Query: '.$query->toSql(), $query->getBindings());
+
+        $pagination = PaginationHelper::paginate($query, $perPage);
+
+        return Response::success(PurchaseResource::collection($pagination['data']), 'Purchases retrieved successfully', $pagination['pagination']);
+    }
 
 
     public function store(StorePurchaseRequest $request)
