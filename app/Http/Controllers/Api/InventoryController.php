@@ -22,11 +22,12 @@ class InventoryController extends Controller
         $perPage = $request->input('per_page', 10); // Default to 10 items per page
 
         $inventories = Inventory::with('product', 'warehouse', 'location')
-            ->searchWithRelations($search, [
+            ->search($search, ['serial_number'], [
                 'product' => ['name'],
                 'warehouse' => ['name'],
                 'location' => ['location_code'],
             ]);
+
 
         $pagination = PaginationHelper::paginate($inventories, $perPage);
 
