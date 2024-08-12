@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\PaginationHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInventoryRequest;
 use App\Http\Requests\UpdateInventoryRequest;
@@ -13,13 +14,23 @@ use Illuminate\Support\Facades\Response;
 
 class InventoryController extends Controller
 {
-    public function index()
+
+
+    public function index(Request $request)
     {
-        $inventories = Inventory::with('product', 'warehouse', 'location')->get();
-        return Response::success(
-            InventoryResource::collection($inventories),
-            'Inventories retrieved successfully'
-        );
+        $search = $request->input('search');
+        $perPage = $request->input('per_page', 10); // Default to 10 items per page
+
+        $inventories = Inventory::with('product', 'warehouse', 'location')
+            ->searchWithRelations($search, [
+                'product' => ['name'],
+                'warehouse' => ['name'],
+                'location' => ['location_code'],
+            ]);
+
+        $pagination = PaginationHelper::paginate($inventories, $perPage);
+
+        return Response::success(InventoryResource::collection($pagination['data']), 'Inventories retrieved successfully', $pagination['pagination']);
     }
 
     public function store(StoreInventoryRequest $request)
