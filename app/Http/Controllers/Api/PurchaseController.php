@@ -16,31 +16,39 @@ use Illuminate\Support\Facades\Response;
 class PurchaseController extends Controller
 {
     public function index(Request $request)
-    {
-        $search = $request->input('search');
-        $perPage = $request->input('per_page', 1000); // Default to 10 items per page
+{
+    $search = $request->input('search');
+    $perPage = $request->input('per_page', 1000); // Default to 1000 items per page
 
-        $query = Purchase::query()->with('items', 'supplier');
+    // Start building the query
+    $query = Purchase::with('items', 'supplier');
 
-        if ($search) {
-            $query->where(function($query) use ($search) {
-                $query->where('id', 'LIKE', "%{$search}%")
-                      ->orWhere('purchase_order_number', 'LIKE', "%{$search}%")
-                      ->orWhere('status', 'LIKE', "%{$search}%")
-                      ->orWhereDate('created_at', 'LIKE', "%{$search}%");
-            });
-
-            // Search in related Supplier model
-            $query->whereHas('supplier', function ($query) use ($search) {
-                $query->where('name', 'LIKE', "%{$search}%");
-            });
-        }
-
-
-        $pagination = PaginationHelper::paginate($query, $perPage);
-
-        return Response::success(PurchaseResource::collection($pagination['data']), 'Purchases retrieved successfully', $pagination['pagination']);
+    // Apply search filters if any search term is provided
+    if ($search) {
+        $query->where(function($query) use ($search) {
+            $query->where('purchase_order_number', 'LIKE', "%{$search}%")
+                  ->orWhere('status', 'LIKE', "%{$search}%")
+                  ->orWhereDate('created_at', 'LIKE', "%{$search}%");
+        })
+        ->orWhereHas('supplier', function ($query) use ($search) {
+            $query->where('name', 'LIKE', "%{$search}%");
+        });
     }
+
+    // Paginate results
+    $pagination = $query->paginate($perPage);
+
+    // Prepare response data
+    $data = PurchaseResource::collection($pagination->items());
+
+    return Response::success($data, 'Purchases retrieved successfully', [
+        'current_page' => $pagination->currentPage(),
+        'total' => $pagination->total(),
+        'per_page' => $pagination->perPage(),
+        'last_page' => $pagination->lastPage()
+    ]);
+}
+
 
 
     public function store(StorePurchaseRequest $request)
