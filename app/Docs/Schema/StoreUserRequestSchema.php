@@ -6,15 +6,14 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
- *     schema="Supplier",
+ *     schema="StoreUserRequest",
  *     type="object",
- *     title="Supplier",
- *     @OA\Property(property="id", type="string", description=""),
+ *     title="StoreUserRequest",
  *     @OA\Property(property="name", type="string", description=""),
  *     @OA\Property(property="email", type="string", description=""),
- *     @OA\Property(property="phone_number", type="string", description="")
+ *     @OA\Property(property="password", type="string", description="")
  * )
  */
-class SupplierSchema
+class StoreUserRequestSchema
 {
 }

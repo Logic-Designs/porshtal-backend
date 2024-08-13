@@ -41,22 +41,22 @@ class GenerateSwaggerDocs extends Command
     }
 
     private function createControllerDocFile($filePath, $controller)
-{
-    $resourceName = $this->getResourceName($controller);
-    $resourcePath = $this->getResourcePath($controller);
+    {
+        $resourceName = $this->getResourceName($controller);
+        $resourcePath = $this->getResourcePath($controller);
 
-    $content = <<<PHP
+        $content = <<<PHP
 <?php
 
 namespace App\Docs;
 
 use OpenApi\Annotations as OA;
-
+use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="{$controller}",
- *     description="Operations related to {$controller}"
+ *     name="{$resourceName}",
+ *     description="Operations related to {$resourceName}"
  * )
  */
 
@@ -65,8 +65,22 @@ class {$resourceName}Docs
     /**
      * @OA\Get(
      *     path="/api/{$resourcePath}",
-     *     tags={"{$controller}"},
+     *     tags={"{$resourceName}"},
      *     summary="Get list of {$resourceName}",
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=false,
+     *         description="Search query",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of items per page",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of {$resourceName}",
@@ -74,16 +88,19 @@ class {$resourceName}Docs
      *     )
      * )
      */
-    public function index() {}
+    public function index(Request \$request) {}
 
     /**
      * @OA\Post(
      *     path="/api/{$resourcePath}",
-     *     tags={"{$controller}"},
+     *     tags={"{$resourceName}"},
      *     summary="Create a new {$resourceName}",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/{$resourceName}")
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Store{$resourceName}Request")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -97,7 +114,7 @@ class {$resourceName}Docs
     /**
      * @OA\Get(
      *     path="/api/{$resourcePath}/{id}",
-     *     tags={"{$controller}"},
+     *     tags={"{$resourceName}"},
      *     summary="Get {$resourceName} by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -118,7 +135,7 @@ class {$resourceName}Docs
     /**
      * @OA\Put(
      *     path="/api/{$resourcePath}/{id}",
-     *     tags={"{$controller}"},
+     *     tags={"{$resourceName}"},
      *     summary="Update {$resourceName} by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -143,7 +160,7 @@ class {$resourceName}Docs
     /**
      * @OA\Delete(
      *     path="/api/{$resourcePath}/{id}",
-     *     tags={"{$controller}"},
+     *     tags={"{$resourceName}"},
      *     summary="Delete {$resourceName} by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -163,10 +180,9 @@ class {$resourceName}Docs
 
 PHP;
 
-    File::put($filePath, $content);
-    $this->info("Created documentation file for $controller at $filePath");
-}
-
+        File::put($filePath, $content);
+        $this->info("Created documentation file for $controller at $filePath");
+    }
 
     private function getResourceName($controller)
     {

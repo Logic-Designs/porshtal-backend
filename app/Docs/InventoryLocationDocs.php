@@ -3,12 +3,12 @@
 namespace App\Docs;
 
 use OpenApi\Annotations as OA;
-
+use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="InventoryLocationController",
- *     description="Operations related to InventoryLocationController"
+ *     name="InventoryLocation",
+ *     description="Operations related to InventoryLocation"
  * )
  */
 
@@ -17,8 +17,22 @@ class InventoryLocationDocs
     /**
      * @OA\Get(
      *     path="/api/inventory-locations",
-     *     tags={"InventoryLocationController"},
+     *     tags={"InventoryLocation"},
      *     summary="Get list of InventoryLocation",
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=false,
+     *         description="Search query",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of items per page",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of InventoryLocation",
@@ -26,16 +40,19 @@ class InventoryLocationDocs
      *     )
      * )
      */
-    public function index() {}
+    public function index(Request $request) {}
 
     /**
      * @OA\Post(
      *     path="/api/inventory-locations",
-     *     tags={"InventoryLocationController"},
+     *     tags={"InventoryLocation"},
      *     summary="Create a new InventoryLocation",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/InventoryLocation")
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/StoreInventoryLocationRequest")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -49,7 +66,7 @@ class InventoryLocationDocs
     /**
      * @OA\Get(
      *     path="/api/inventory-locations/{id}",
-     *     tags={"InventoryLocationController"},
+     *     tags={"InventoryLocation"},
      *     summary="Get InventoryLocation by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -70,7 +87,7 @@ class InventoryLocationDocs
     /**
      * @OA\Put(
      *     path="/api/inventory-locations/{id}",
-     *     tags={"InventoryLocationController"},
+     *     tags={"InventoryLocation"},
      *     summary="Update InventoryLocation by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -95,7 +112,7 @@ class InventoryLocationDocs
     /**
      * @OA\Delete(
      *     path="/api/inventory-locations/{id}",
-     *     tags={"InventoryLocationController"},
+     *     tags={"InventoryLocation"},
      *     summary="Delete InventoryLocation by ID",
      *     @OA\Parameter(
      *         name="id",

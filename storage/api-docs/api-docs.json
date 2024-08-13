@@ -8,10 +8,30 @@
         "/api/inventories": {
             "get": {
                 "tags": [
-                    "InventoryController"
+                    "Inventory"
                 ],
                 "summary": "Get list of Inventory",
                 "operationId": "1a3a159deb813a623edf9e2c0d85a5d5",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of Inventory",
@@ -30,16 +50,16 @@
             },
             "post": {
                 "tags": [
-                    "InventoryController"
+                    "Inventory"
                 ],
                 "summary": "Create a new Inventory",
                 "operationId": "5f33cd8803c7e111ba7c89f58d4301d7",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Inventory"
+                                "$ref": "#/components/schemas/StoreInventoryRequest"
                             }
                         }
                     }
@@ -61,7 +81,7 @@
         "/api/inventories/{id}": {
             "get": {
                 "tags": [
-                    "InventoryController"
+                    "Inventory"
                 ],
                 "summary": "Get Inventory by ID",
                 "operationId": "5ca65613ecbf464c0406c7c3c8252e28",
@@ -91,7 +111,7 @@
             },
             "put": {
                 "tags": [
-                    "InventoryController"
+                    "Inventory"
                 ],
                 "summary": "Update Inventory by ID",
                 "operationId": "780f24f57f85ee1fef108e3a79adeb2b",
@@ -131,7 +151,7 @@
             },
             "delete": {
                 "tags": [
-                    "InventoryController"
+                    "Inventory"
                 ],
                 "summary": "Delete Inventory by ID",
                 "operationId": "33c17d84e6a189a36aa35aabe62fa042",
@@ -156,10 +176,30 @@
         "/api/inventory-locations": {
             "get": {
                 "tags": [
-                    "InventoryLocationController"
+                    "InventoryLocation"
                 ],
                 "summary": "Get list of InventoryLocation",
                 "operationId": "f03ea1f0c8b50a3d84ce08244b086fc6",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of InventoryLocation",
@@ -178,16 +218,16 @@
             },
             "post": {
                 "tags": [
-                    "InventoryLocationController"
+                    "InventoryLocation"
                 ],
                 "summary": "Create a new InventoryLocation",
                 "operationId": "32583a43b05aea7d5e0f7a96aed8a803",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/InventoryLocation"
+                                "$ref": "#/components/schemas/StoreInventoryLocationRequest"
                             }
                         }
                     }
@@ -209,7 +249,7 @@
         "/api/inventory-locations/{id}": {
             "get": {
                 "tags": [
-                    "InventoryLocationController"
+                    "InventoryLocation"
                 ],
                 "summary": "Get InventoryLocation by ID",
                 "operationId": "33c5fa750872902578c0850711567a70",
@@ -239,7 +279,7 @@
             },
             "put": {
                 "tags": [
-                    "InventoryLocationController"
+                    "InventoryLocation"
                 ],
                 "summary": "Update InventoryLocation by ID",
                 "operationId": "34590af2b316bb4ab94c5eb7dacab1ff",
@@ -279,7 +319,7 @@
             },
             "delete": {
                 "tags": [
-                    "InventoryLocationController"
+                    "InventoryLocation"
                 ],
                 "summary": "Delete InventoryLocation by ID",
                 "operationId": "1a81083b50ee3ffa6c86ce78a1fbb76a",
@@ -304,10 +344,30 @@
         "/api/products": {
             "get": {
                 "tags": [
-                    "ProductController"
+                    "Product"
                 ],
                 "summary": "Get list of Product",
                 "operationId": "e46d108d90309952c401175c5e94ef57",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of Product",
@@ -326,16 +386,16 @@
             },
             "post": {
                 "tags": [
-                    "ProductController"
+                    "Product"
                 ],
                 "summary": "Create a new Product",
                 "operationId": "8bfba18ea9c47ad6195a9c0e96045900",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Product"
+                                "$ref": "#/components/schemas/StoreProductRequest"
                             }
                         }
                     }
@@ -357,7 +417,7 @@
         "/api/products/{id}": {
             "get": {
                 "tags": [
-                    "ProductController"
+                    "Product"
                 ],
                 "summary": "Get Product by ID",
                 "operationId": "6e3fddfd9da218a7f9a84e848ad5c3c1",
@@ -387,7 +447,7 @@
             },
             "put": {
                 "tags": [
-                    "ProductController"
+                    "Product"
                 ],
                 "summary": "Update Product by ID",
                 "operationId": "9a31ccc36557652f0ae1bd52cb5ef48a",
@@ -427,7 +487,7 @@
             },
             "delete": {
                 "tags": [
-                    "ProductController"
+                    "Product"
                 ],
                 "summary": "Delete Product by ID",
                 "operationId": "68764369161137b3867656aab3410b67",
@@ -452,10 +512,30 @@
         "/api/purchases": {
             "get": {
                 "tags": [
-                    "PurchaseController"
+                    "Purchase"
                 ],
                 "summary": "Get list of Purchase",
                 "operationId": "ee4c69b654b7ec4b6d79e55df6595bb3",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of Purchase",
@@ -474,16 +554,16 @@
             },
             "post": {
                 "tags": [
-                    "PurchaseController"
+                    "Purchase"
                 ],
                 "summary": "Create a new Purchase",
                 "operationId": "ef3470385e520187603f5123530e9265",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Purchase"
+                                "$ref": "#/components/schemas/StorePurchaseRequest"
                             }
                         }
                     }
@@ -505,7 +585,7 @@
         "/api/purchases/{id}": {
             "get": {
                 "tags": [
-                    "PurchaseController"
+                    "Purchase"
                 ],
                 "summary": "Get Purchase by ID",
                 "operationId": "b9f79d35eae7fa210521a6183a5dad3d",
@@ -535,7 +615,7 @@
             },
             "put": {
                 "tags": [
-                    "PurchaseController"
+                    "Purchase"
                 ],
                 "summary": "Update Purchase by ID",
                 "operationId": "06c4ba084486c99c5d7853c63dcc0818",
@@ -553,9 +633,32 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Purchase"
+                                "properties": {
+                                    "expected_delivery_date": {
+                                        "description": "The expected delivery date in d-m-Y format",
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "supplier_id": {
+                                        "description": "The ID of the supplier, must exist in the suppliers table",
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "status": {
+                                        "description": "The status of the purchase, one of: open, pending, completed, cancelled",
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "expected_delivery_date": "15-08-2024",
+                                    "supplier_id": "1",
+                                    "status": "completed"
+                                }
                             }
                         }
                     }
@@ -575,7 +678,7 @@
             },
             "delete": {
                 "tags": [
-                    "PurchaseController"
+                    "Purchase"
                 ],
                 "summary": "Delete Purchase by ID",
                 "operationId": "d8d507c07b470c30caec01737b2ff92f",
@@ -600,10 +703,30 @@
         "/api/purchase-items": {
             "get": {
                 "tags": [
-                    "PurchaseItemController"
+                    "PurchaseItem"
                 ],
                 "summary": "Get list of PurchaseItem",
                 "operationId": "b4632ffb16e18c9e3cf6faa5807e32fd",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of PurchaseItem",
@@ -622,16 +745,16 @@
             },
             "post": {
                 "tags": [
-                    "PurchaseItemController"
+                    "PurchaseItem"
                 ],
                 "summary": "Create a new PurchaseItem",
                 "operationId": "27e6adc1840715640ba44d3c6912e7eb",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/PurchaseItem"
+                                "$ref": "#/components/schemas/StorePurchaseItemRequest"
                             }
                         }
                     }
@@ -653,7 +776,7 @@
         "/api/purchase-items/{id}": {
             "get": {
                 "tags": [
-                    "PurchaseItemController"
+                    "PurchaseItem"
                 ],
                 "summary": "Get PurchaseItem by ID",
                 "operationId": "3e1ed8a2c79b5fa4cb4bd70e6fbe634e",
@@ -683,7 +806,7 @@
             },
             "put": {
                 "tags": [
-                    "PurchaseItemController"
+                    "PurchaseItem"
                 ],
                 "summary": "Update PurchaseItem by ID",
                 "operationId": "21574542729204758f6c8eebe9c4e0e5",
@@ -723,7 +846,7 @@
             },
             "delete": {
                 "tags": [
-                    "PurchaseItemController"
+                    "PurchaseItem"
                 ],
                 "summary": "Delete PurchaseItem by ID",
                 "operationId": "c2f85346def9a0929618ad138fa62901",
@@ -748,10 +871,30 @@
         "/api/suppliers": {
             "get": {
                 "tags": [
-                    "SupplierController"
+                    "Supplier"
                 ],
                 "summary": "Get list of Supplier",
                 "operationId": "5a07491c9bb0f80b30dd80854938839b",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of Supplier",
@@ -770,16 +913,16 @@
             },
             "post": {
                 "tags": [
-                    "SupplierController"
+                    "Supplier"
                 ],
                 "summary": "Create a new Supplier",
                 "operationId": "8ba81915b628ed76cdc8502eb9aa2121",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Supplier"
+                                "$ref": "#/components/schemas/StoreSupplierRequest"
                             }
                         }
                     }
@@ -801,7 +944,7 @@
         "/api/suppliers/{id}": {
             "get": {
                 "tags": [
-                    "SupplierController"
+                    "Supplier"
                 ],
                 "summary": "Get Supplier by ID",
                 "operationId": "a53e63ec7efe05b589fe3d410d7f542d",
@@ -831,7 +974,7 @@
             },
             "put": {
                 "tags": [
-                    "SupplierController"
+                    "Supplier"
                 ],
                 "summary": "Update Supplier by ID",
                 "operationId": "f614ddb2c46358bf2e9de3beb25d0a62",
@@ -871,7 +1014,7 @@
             },
             "delete": {
                 "tags": [
-                    "SupplierController"
+                    "Supplier"
                 ],
                 "summary": "Delete Supplier by ID",
                 "operationId": "1ac81a534778700d353ef0fd0ecfe41a",
@@ -896,10 +1039,30 @@
         "/api/users": {
             "get": {
                 "tags": [
-                    "UserController"
+                    "User"
                 ],
                 "summary": "Get list of User",
                 "operationId": "78c8bdfb1fab79f46375924177646d3d",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of User",
@@ -918,16 +1081,16 @@
             },
             "post": {
                 "tags": [
-                    "UserController"
+                    "User"
                 ],
                 "summary": "Create a new User",
                 "operationId": "d226b3f13f3ee927fb3ff7471df9bf59",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/User"
+                                "$ref": "#/components/schemas/StoreUserRequest"
                             }
                         }
                     }
@@ -949,7 +1112,7 @@
         "/api/users/{id}": {
             "get": {
                 "tags": [
-                    "UserController"
+                    "User"
                 ],
                 "summary": "Get User by ID",
                 "operationId": "3df9427e6bcb67d07de2cf0d1b7f6e5a",
@@ -979,7 +1142,7 @@
             },
             "put": {
                 "tags": [
-                    "UserController"
+                    "User"
                 ],
                 "summary": "Update User by ID",
                 "operationId": "25fa95ef92a260305cfa891710f2ace3",
@@ -1019,7 +1182,7 @@
             },
             "delete": {
                 "tags": [
-                    "UserController"
+                    "User"
                 ],
                 "summary": "Delete User by ID",
                 "operationId": "c39650c13eedf712712f225fc7933a5e",
@@ -1044,10 +1207,30 @@
         "/api/warehouses": {
             "get": {
                 "tags": [
-                    "WarehouseController"
+                    "Warehouse"
                 ],
                 "summary": "Get list of Warehouse",
                 "operationId": "3202759635b285795476dd2f81c90614",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of Warehouse",
@@ -1066,16 +1249,16 @@
             },
             "post": {
                 "tags": [
-                    "WarehouseController"
+                    "Warehouse"
                 ],
                 "summary": "Create a new Warehouse",
                 "operationId": "fceb47f2622a7f9299b8105271eaad5e",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Warehouse"
+                                "$ref": "#/components/schemas/StoreWarehouseRequest"
                             }
                         }
                     }
@@ -1097,7 +1280,7 @@
         "/api/warehouses/{id}": {
             "get": {
                 "tags": [
-                    "WarehouseController"
+                    "Warehouse"
                 ],
                 "summary": "Get Warehouse by ID",
                 "operationId": "2ecb64a65a1321242a2e9ed2171da3c1",
@@ -1127,7 +1310,7 @@
             },
             "put": {
                 "tags": [
-                    "WarehouseController"
+                    "Warehouse"
                 ],
                 "summary": "Update Warehouse by ID",
                 "operationId": "a7f5804a21aa56b39a4b67e81c57faf3",
@@ -1167,7 +1350,7 @@
             },
             "delete": {
                 "tags": [
-                    "WarehouseController"
+                    "Warehouse"
                 ],
                 "summary": "Delete Warehouse by ID",
                 "operationId": "0badfefc6af693b4f669772971b50894",
@@ -1194,20 +1377,21 @@
         "schemas": {
             "InventoryLocation": {
                 "title": "InventoryLocation",
-                "required": [
-                    "id"
-                ],
                 "properties": {
                     "id": {
+                        "description": "",
                         "type": "string"
                     },
                     "warehouse_id": {
+                        "description": "",
                         "type": "string"
                     },
                     "location_code": {
+                        "description": "",
                         "type": "string"
                     },
                     "description": {
+                        "description": "",
                         "type": "string"
                     }
                 },
@@ -1215,26 +1399,29 @@
             },
             "Inventory": {
                 "title": "Inventory",
-                "required": [
-                    "id"
-                ],
                 "properties": {
                     "id": {
+                        "description": "",
                         "type": "string"
                     },
                     "product_id": {
+                        "description": "Reference to the Product model",
                         "type": "string"
                     },
                     "warehouse_id": {
+                        "description": "",
                         "type": "string"
                     },
                     "quantity": {
+                        "description": "",
                         "type": "string"
                     },
                     "serial_number": {
+                        "description": "",
                         "type": "string"
                     },
                     "location_id": {
+                        "description": "",
                         "type": "string"
                     }
                 },
@@ -1242,23 +1429,21 @@
             },
             "Product": {
                 "title": "Product",
-                "required": [
-                    "id"
-                ],
                 "properties": {
                     "id": {
-                        "type": "string"
-                    },
-                    "user_id": {
+                        "description": "",
                         "type": "string"
                     },
                     "name": {
+                        "description": "",
                         "type": "string"
                     },
                     "description": {
+                        "description": "",
                         "type": "string"
                     },
                     "price": {
+                        "description": "",
                         "type": "string"
                     }
                 },
@@ -1266,26 +1451,29 @@
             },
             "PurchaseItem": {
                 "title": "PurchaseItem",
-                "required": [
-                    "id"
-                ],
                 "properties": {
                     "id": {
+                        "description": "",
                         "type": "string"
                     },
                     "purchase_id": {
+                        "description": "",
                         "type": "string"
                     },
                     "product_id": {
+                        "description": "Reference to the Product model",
                         "type": "string"
                     },
                     "quantity": {
+                        "description": "",
                         "type": "string"
                     },
                     "unit_price": {
+                        "description": "",
                         "type": "string"
                     },
                     "total_price": {
+                        "description": "",
                         "type": "string"
                     }
                 },
@@ -1293,29 +1481,185 @@
             },
             "Purchase": {
                 "title": "Purchase",
-                "required": [
-                    "id"
-                ],
                 "properties": {
                     "id": {
+                        "description": "",
                         "type": "string"
                     },
                     "purchase_order_number": {
+                        "description": "",
                         "type": "string"
                     },
                     "supplier_id": {
+                        "description": "Reference to the Supplier model",
                         "type": "string"
                     },
                     "order_date": {
+                        "description": "",
                         "type": "string"
                     },
                     "expected_delivery_date": {
+                        "description": "",
                         "type": "string"
                     },
                     "total_amount": {
+                        "description": "",
                         "type": "string"
                     },
                     "status": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreInventoryLocationRequest": {
+                "title": "StoreInventoryLocationRequest",
+                "properties": {
+                    "warehouse_id": {
+                        "description": "Reference to another model",
+                        "type": "string"
+                    },
+                    "location_code": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreInventoryRequest": {
+                "title": "StoreInventoryRequest",
+                "properties": {
+                    "product_id": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "warehouse_id": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "serial_number": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "location_id": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreProductRequest": {
+                "title": "StoreProductRequest",
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "StorePurchaseItemRequest": {
+                "title": "StorePurchaseItemRequest",
+                "properties": {
+                    "purchase_id": {
+                        "description": "Reference to another model",
+                        "type": "string"
+                    },
+                    "product_id": {
+                        "description": "Reference to another model",
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "description": "",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "StorePurchaseRequest": {
+                "title": "StorePurchaseRequest",
+                "properties": {
+                    "order_date": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "expected_delivery_date": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "supplier_id": {
+                        "description": "Reference to another model",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreSupplierRequest": {
+                "title": "StoreSupplierRequest",
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreUserRequest": {
+                "title": "StoreUserRequest",
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreWarehouseRequest": {
+                "title": "StoreWarehouseRequest",
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "manager_id": {
+                        "description": "Reference to another model",
                         "type": "string"
                     }
                 },
@@ -1323,20 +1667,21 @@
             },
             "Supplier": {
                 "title": "Supplier",
-                "required": [
-                    "id"
-                ],
                 "properties": {
                     "id": {
+                        "description": "",
                         "type": "string"
                     },
                     "name": {
+                        "description": "",
                         "type": "string"
                     },
                     "email": {
+                        "description": "",
                         "type": "string"
                     },
                     "phone_number": {
+                        "description": "",
                         "type": "string"
                     }
                 },
@@ -1344,17 +1689,17 @@
             },
             "User": {
                 "title": "User",
-                "required": [
-                    "id"
-                ],
                 "properties": {
                     "name": {
+                        "description": "",
                         "type": "string"
                     },
                     "email": {
+                        "description": "",
                         "type": "string"
                     },
                     "password": {
+                        "description": "",
                         "type": "string"
                     }
                 },
@@ -1362,20 +1707,21 @@
             },
             "Warehouse": {
                 "title": "Warehouse",
-                "required": [
-                    "id"
-                ],
                 "properties": {
                     "id": {
+                        "description": "",
                         "type": "string"
                     },
                     "name": {
+                        "description": "",
                         "type": "string"
                     },
                     "location": {
+                        "description": "",
                         "type": "string"
                     },
                     "manager_id": {
+                        "description": "",
                         "type": "string"
                     }
                 },
@@ -1385,36 +1731,36 @@
     },
     "tags": [
         {
-            "name": "InventoryController",
-            "description": "Operations related to InventoryController"
+            "name": "Inventory",
+            "description": "Operations related to Inventory"
         },
         {
-            "name": "InventoryLocationController",
-            "description": "Operations related to InventoryLocationController"
+            "name": "InventoryLocation",
+            "description": "Operations related to InventoryLocation"
         },
         {
-            "name": "ProductController",
-            "description": "Operations related to ProductController"
+            "name": "Product",
+            "description": "Operations related to Product"
         },
         {
-            "name": "PurchaseController",
-            "description": "Operations related to PurchaseController"
+            "name": "Purchase",
+            "description": "Operations related to Purchase"
         },
         {
-            "name": "PurchaseItemController",
-            "description": "Operations related to PurchaseItemController"
+            "name": "PurchaseItem",
+            "description": "Operations related to PurchaseItem"
         },
         {
-            "name": "SupplierController",
-            "description": "Operations related to SupplierController"
+            "name": "Supplier",
+            "description": "Operations related to Supplier"
         },
         {
-            "name": "UserController",
-            "description": "Operations related to UserController"
+            "name": "User",
+            "description": "Operations related to User"
         },
         {
-            "name": "WarehouseController",
-            "description": "Operations related to WarehouseController"
+            "name": "Warehouse",
+            "description": "Operations related to Warehouse"
         }
     ]
 }

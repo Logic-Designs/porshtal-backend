@@ -3,12 +3,12 @@
 namespace App\Docs;
 
 use OpenApi\Annotations as OA;
-
+use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="ProductController",
- *     description="Operations related to ProductController"
+ *     name="Product",
+ *     description="Operations related to Product"
  * )
  */
 
@@ -17,8 +17,22 @@ class ProductDocs
     /**
      * @OA\Get(
      *     path="/api/products",
-     *     tags={"ProductController"},
+     *     tags={"Product"},
      *     summary="Get list of Product",
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=false,
+     *         description="Search query",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of items per page",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of Product",
@@ -26,16 +40,19 @@ class ProductDocs
      *     )
      * )
      */
-    public function index() {}
+    public function index(Request $request) {}
 
     /**
      * @OA\Post(
      *     path="/api/products",
-     *     tags={"ProductController"},
+     *     tags={"Product"},
      *     summary="Create a new Product",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/StoreProductRequest")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -49,7 +66,7 @@ class ProductDocs
     /**
      * @OA\Get(
      *     path="/api/products/{id}",
-     *     tags={"ProductController"},
+     *     tags={"Product"},
      *     summary="Get Product by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -70,7 +87,7 @@ class ProductDocs
     /**
      * @OA\Put(
      *     path="/api/products/{id}",
-     *     tags={"ProductController"},
+     *     tags={"Product"},
      *     summary="Update Product by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -95,7 +112,7 @@ class ProductDocs
     /**
      * @OA\Delete(
      *     path="/api/products/{id}",
-     *     tags={"ProductController"},
+     *     tags={"Product"},
      *     summary="Delete Product by ID",
      *     @OA\Parameter(
      *         name="id",

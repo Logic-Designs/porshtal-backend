@@ -20,13 +20,21 @@ class PurchaseController extends Controller
         $search = $request->input('search');
         $perPage = $request->input('per_page', 1000); // Default to 10 items per page
 
-        $query = Purchase::with('items', 'supplier')
-            ->search($search, [
-                'id',
-                'purchase_order_number',
-                'status',
-                'created_at',
-            ])->searchWithRelations($search ,['supplier' => ['name']]);
+        $query = Purchase::query();
+        
+        if ($search) {
+            $query->where(function($query) use ($search) {
+                $query->where('id', 'LIKE', "%{$search}%")
+                      ->orWhere('purchase_order_number', 'LIKE', "%{$search}%")
+                      ->orWhere('status', 'LIKE', "%{$search}%")
+                      ->orWhereDate('created_at', 'LIKE', "%{$search}%");
+            });
+
+            // Search in related Supplier model
+            $query->whereHas('supplier', function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%");
+            });
+        }
 
 
         $pagination = PaginationHelper::paginate($query, $perPage);

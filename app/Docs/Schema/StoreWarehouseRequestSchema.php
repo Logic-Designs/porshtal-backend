@@ -6,15 +6,14 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
- *     schema="Warehouse",
+ *     schema="StoreWarehouseRequest",
  *     type="object",
- *     title="Warehouse",
- *     @OA\Property(property="id", type="string", description=""),
+ *     title="StoreWarehouseRequest",
  *     @OA\Property(property="name", type="string", description=""),
  *     @OA\Property(property="location", type="string", description=""),
- *     @OA\Property(property="manager_id", type="string", description="")
+ *     @OA\Property(property="manager_id", type="string", description="Reference to another model")
  * )
  */
-class WarehouseSchema
+class StoreWarehouseRequestSchema
 {
 }

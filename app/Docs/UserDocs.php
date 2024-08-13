@@ -3,12 +3,12 @@
 namespace App\Docs;
 
 use OpenApi\Annotations as OA;
-
+use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="UserController",
- *     description="Operations related to UserController"
+ *     name="User",
+ *     description="Operations related to User"
  * )
  */
 
@@ -17,8 +17,22 @@ class UserDocs
     /**
      * @OA\Get(
      *     path="/api/users",
-     *     tags={"UserController"},
+     *     tags={"User"},
      *     summary="Get list of User",
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=false,
+     *         description="Search query",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of items per page",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of User",
@@ -26,16 +40,19 @@ class UserDocs
      *     )
      * )
      */
-    public function index() {}
+    public function index(Request $request) {}
 
     /**
      * @OA\Post(
      *     path="/api/users",
-     *     tags={"UserController"},
+     *     tags={"User"},
      *     summary="Create a new User",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/User")
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/StoreUserRequest")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -49,7 +66,7 @@ class UserDocs
     /**
      * @OA\Get(
      *     path="/api/users/{id}",
-     *     tags={"UserController"},
+     *     tags={"User"},
      *     summary="Get User by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -70,7 +87,7 @@ class UserDocs
     /**
      * @OA\Put(
      *     path="/api/users/{id}",
-     *     tags={"UserController"},
+     *     tags={"User"},
      *     summary="Update User by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -95,7 +112,7 @@ class UserDocs
     /**
      * @OA\Delete(
      *     path="/api/users/{id}",
-     *     tags={"UserController"},
+     *     tags={"User"},
      *     summary="Delete User by ID",
      *     @OA\Parameter(
      *         name="id",

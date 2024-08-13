@@ -3,12 +3,12 @@
 namespace App\Docs;
 
 use OpenApi\Annotations as OA;
-
+use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="PurchaseItemController",
- *     description="Operations related to PurchaseItemController"
+ *     name="PurchaseItem",
+ *     description="Operations related to PurchaseItem"
  * )
  */
 
@@ -17,8 +17,22 @@ class PurchaseItemDocs
     /**
      * @OA\Get(
      *     path="/api/purchase-items",
-     *     tags={"PurchaseItemController"},
+     *     tags={"PurchaseItem"},
      *     summary="Get list of PurchaseItem",
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=false,
+     *         description="Search query",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of items per page",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of PurchaseItem",
@@ -26,16 +40,19 @@ class PurchaseItemDocs
      *     )
      * )
      */
-    public function index() {}
+    public function index(Request $request) {}
 
     /**
      * @OA\Post(
      *     path="/api/purchase-items",
-     *     tags={"PurchaseItemController"},
+     *     tags={"PurchaseItem"},
      *     summary="Create a new PurchaseItem",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/PurchaseItem")
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/StorePurchaseItemRequest")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -49,7 +66,7 @@ class PurchaseItemDocs
     /**
      * @OA\Get(
      *     path="/api/purchase-items/{id}",
-     *     tags={"PurchaseItemController"},
+     *     tags={"PurchaseItem"},
      *     summary="Get PurchaseItem by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -70,7 +87,7 @@ class PurchaseItemDocs
     /**
      * @OA\Put(
      *     path="/api/purchase-items/{id}",
-     *     tags={"PurchaseItemController"},
+     *     tags={"PurchaseItem"},
      *     summary="Update PurchaseItem by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -95,7 +112,7 @@ class PurchaseItemDocs
     /**
      * @OA\Delete(
      *     path="/api/purchase-items/{id}",
-     *     tags={"PurchaseItemController"},
+     *     tags={"PurchaseItem"},
      *     summary="Delete PurchaseItem by ID",
      *     @OA\Parameter(
      *         name="id",

@@ -3,12 +3,12 @@
 namespace App\Docs;
 
 use OpenApi\Annotations as OA;
-
+use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="SupplierController",
- *     description="Operations related to SupplierController"
+ *     name="Supplier",
+ *     description="Operations related to Supplier"
  * )
  */
 
@@ -17,8 +17,22 @@ class SupplierDocs
     /**
      * @OA\Get(
      *     path="/api/suppliers",
-     *     tags={"SupplierController"},
+     *     tags={"Supplier"},
      *     summary="Get list of Supplier",
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=false,
+     *         description="Search query",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of items per page",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of Supplier",
@@ -26,16 +40,19 @@ class SupplierDocs
      *     )
      * )
      */
-    public function index() {}
+    public function index(Request $request) {}
 
     /**
      * @OA\Post(
      *     path="/api/suppliers",
-     *     tags={"SupplierController"},
+     *     tags={"Supplier"},
      *     summary="Create a new Supplier",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Supplier")
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/StoreSupplierRequest")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -49,7 +66,7 @@ class SupplierDocs
     /**
      * @OA\Get(
      *     path="/api/suppliers/{id}",
-     *     tags={"SupplierController"},
+     *     tags={"Supplier"},
      *     summary="Get Supplier by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -70,7 +87,7 @@ class SupplierDocs
     /**
      * @OA\Put(
      *     path="/api/suppliers/{id}",
-     *     tags={"SupplierController"},
+     *     tags={"Supplier"},
      *     summary="Update Supplier by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -95,7 +112,7 @@ class SupplierDocs
     /**
      * @OA\Delete(
      *     path="/api/suppliers/{id}",
-     *     tags={"SupplierController"},
+     *     tags={"Supplier"},
      *     summary="Delete Supplier by ID",
      *     @OA\Parameter(
      *         name="id",

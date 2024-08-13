@@ -3,12 +3,12 @@
 namespace App\Docs;
 
 use OpenApi\Annotations as OA;
-
+use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="WarehouseController",
- *     description="Operations related to WarehouseController"
+ *     name="Warehouse",
+ *     description="Operations related to Warehouse"
  * )
  */
 
@@ -17,8 +17,22 @@ class WarehouseDocs
     /**
      * @OA\Get(
      *     path="/api/warehouses",
-     *     tags={"WarehouseController"},
+     *     tags={"Warehouse"},
      *     summary="Get list of Warehouse",
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=false,
+     *         description="Search query",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of items per page",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of Warehouse",
@@ -26,16 +40,19 @@ class WarehouseDocs
      *     )
      * )
      */
-    public function index() {}
+    public function index(Request $request) {}
 
     /**
      * @OA\Post(
      *     path="/api/warehouses",
-     *     tags={"WarehouseController"},
+     *     tags={"Warehouse"},
      *     summary="Create a new Warehouse",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Warehouse")
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/StoreWarehouseRequest")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -49,7 +66,7 @@ class WarehouseDocs
     /**
      * @OA\Get(
      *     path="/api/warehouses/{id}",
-     *     tags={"WarehouseController"},
+     *     tags={"Warehouse"},
      *     summary="Get Warehouse by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -70,7 +87,7 @@ class WarehouseDocs
     /**
      * @OA\Put(
      *     path="/api/warehouses/{id}",
-     *     tags={"WarehouseController"},
+     *     tags={"Warehouse"},
      *     summary="Update Warehouse by ID",
      *     @OA\Parameter(
      *         name="id",
@@ -95,7 +112,7 @@ class WarehouseDocs
     /**
      * @OA\Delete(
      *     path="/api/warehouses/{id}",
-     *     tags={"WarehouseController"},
+     *     tags={"Warehouse"},
      *     summary="Delete Warehouse by ID",
      *     @OA\Parameter(
      *         name="id",
