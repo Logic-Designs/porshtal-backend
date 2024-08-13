@@ -20,8 +20,8 @@ class PurchaseController extends Controller
         $search = $request->input('search');
         $perPage = $request->input('per_page', 1000); // Default to 10 items per page
 
-        $query = Purchase::query();
-        
+        $query = Purchase::query()->with('items', 'supplier');
+
         if ($search) {
             $query->where(function($query) use ($search) {
                 $query->where('id', 'LIKE', "%{$search}%")
