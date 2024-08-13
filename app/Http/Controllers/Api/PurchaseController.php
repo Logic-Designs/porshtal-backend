@@ -18,7 +18,7 @@ class PurchaseController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $perPage = $request->input('per_page', 10); // Default to 10 items per page
+        $perPage = $request->input('per_page', 1000); // Default to 10 items per page
 
         $query = Purchase::with('items', 'supplier')
             ->search($search, [
@@ -28,8 +28,6 @@ class PurchaseController extends Controller
                 'created_at',
             ])->searchWithRelations($search ,['supplier' => ['name']]);
 
-        // Debugging: Log the raw SQL query and bindings
-        info('Query: '.$query->toSql(), $query->getBindings());
 
         $pagination = PaginationHelper::paginate($query, $perPage);
 
